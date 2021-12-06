@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cp.study.springboot.board.BoardMapper">
+    <select id="selectBoardList" resultType="com.cp.study.springboot.board.BoardDto">
+        SELECT
+            id
+            , title
+            , contents
+            , views
+            , create_time
+        FROM 
+            user_board
+        WHERE
+            is_deleted = false
+        ORDER BY id desc
+    </select>
+</mapper>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<h2>board list</h2>
+<div>
+    <ul>
+        <li th:each="item: ${boardList}">
+            <p>id: <span th:text="${item.id}"></span></p>
+            <p>title: <span th:text="${item.title}"></span></p>
+            <p>contents: <span th:text="${item.contents}"></span></p>
+            <p>views: <span th:text="${item.views}"></span></p>
+            <p>created_time: <span th:text="${item.createTime}"></span></p>
+        </li>
+    </ul>
+</div>
