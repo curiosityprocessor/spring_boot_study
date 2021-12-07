@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>사용자 게시판</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h2>사용자 게시판</h2>
+        <table class="board_list">
+            <caption>사용자 게시글 목록</caption>
+            <thead>
+                <tr>
+                    <th scope="col">글번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">조회수</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">작성자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.size(boardList)} > 0" th:each="list : ${boardList}">
+                    <td th:text="${list.id}">글번호</td>
+                    <td class="title"><a href="/board/user/selectBoardDetail?id=" th:attrappend="href=${list.id}" th:text="${list.title}">제목</a></td>
+                    <td th:text="${list.views}">조회수</td>
+                    <td th:text="${#temporals.format(list.createTime, 'yyyy-MM-dd HH:mm:ss')}">작성일</td>
+                    <td th:text="${list.createId}">작성자</td>
+                </tr> 
+                <tr th:unless="${#lists.size(boardList)} > 0">
+                    <td colspan="5">조회된 결과가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/board/user/board-writer" class="btn">글 쓰기</a>
+    </div>
+</body>
+</html>

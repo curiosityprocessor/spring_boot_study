@@ -1,25 +1,15 @@
 package com.cp.study.springboot.common;
 
+import com.cp.study.springboot.common.CommonConstants.ResultCode;
+
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Builder.Default;
 
 @Data
+@Builder
 public class Result {
-    private ResultCode resultCode;
+    @Builder.Default
+    private ResultCode resultCode = ResultCode.FAIL;
     private String resultMessage;
 }
 
-enum ResultCode {
-    SUCCESS("00"), 
-    WAITING("01"), 
-    FAIL("99");
-
-    @Getter
-    private final String code;
-
-    ResultCode(String code){
-        this.code = code;
-    }
-
-}

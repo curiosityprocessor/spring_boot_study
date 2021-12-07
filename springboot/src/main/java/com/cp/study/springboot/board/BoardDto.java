@@ -11,9 +11,9 @@ public class BoardDto {
     private String contents;
     private int views;
     private boolean isDeleted;
-    private String creator;
+    private String createId;
     private LocalDateTime createTime;
-    private String updater;
+    private String updateId;
     private LocalDateTime updateTime;
 }
 

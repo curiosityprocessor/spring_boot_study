@@ -7,13 +7,13 @@ import com.cp.study.springboot.common.Result;
 public class QnaBoardServiceImpl implements BoardService {
 
     @Override
-    public Result insertBoard() {
+    public Result insertBoard(BoardDto param) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public BoardDto selectBoard() {
+    public BoardDto selectBoard(BoardDto param) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.cp.study.springboot.board.BoardMapper">
+<mapper namespace="com.cp.study.springboot.board.UserBoardReadMapper">
     <select id="selectBoardList" resultType="com.cp.study.springboot.board.BoardDto">
         SELECT
             id
             , title
             , contents
             , views
+            , create_id
             , create_time
         FROM 
             user_board

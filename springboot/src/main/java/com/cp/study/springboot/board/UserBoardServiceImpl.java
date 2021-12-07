@@ -3,6 +3,7 @@ package com.cp.study.springboot.board;
 import java.util.List;
 
 import com.cp.study.springboot.common.Result;
+import com.cp.study.springboot.common.CommonConstants.ResultCode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,23 +14,26 @@ import org.springframework.stereotype.Service;
 public class UserBoardServiceImpl implements BoardService {
 
     @Autowired
-    BoardMapper boardMapper;
+    UserBoardReadMapper userBoardReadMapper;
+
+    @Autowired
+    UserBoardWriteMapper userBoardWriteMapper;
 
     @Override
-    public Result insertBoard() {
-        // TODO Auto-generated method stub
-        return null;
+    public Result insertBoard(BoardDto param) {
+        userBoardWriteMapper.insertBoard(param);
+        return Result.builder().resultCode(ResultCode.SUCCESS).build();
     }
 
     @Override
-    public BoardDto selectBoard() {
+    public BoardDto selectBoard(BoardDto param) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public List<BoardDto> selectBoardList() {
-        return boardMapper.selectBoardList();
+        return userBoardReadMapper.selectBoardList();
     }
 
     @Override
