@@ -39,9 +39,9 @@ public class UserBoardController {
     }
 
     @PostMapping("/entry")
-    public View entry(BoardDto param, ModelMap model) {
+    public ModelAndView entry(BoardDto param, ModelMap model) {
         Result result = boardService.insertBoard(param);
         model.addAttribute("result", result);
-        return new MappingJackson2JsonView();
+        return new ModelAndView("redirect:/board/user/boardlist"); //TODO check forward, addAttribute to model
     }
 }
