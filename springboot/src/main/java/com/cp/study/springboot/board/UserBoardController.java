@@ -22,6 +22,8 @@ public class UserBoardController {
     @Autowired
     @Qualifier("UserBoardService")
     private BoardService boardService;
+
+    private String mockUserId = "cpBot1";
     
     @GetMapping("/boardlist")
     public ModelAndView boardList() {
@@ -40,6 +42,8 @@ public class UserBoardController {
 
     @PostMapping("/entry")
     public ModelAndView entry(BoardDto param, ModelMap model) {
+        param.setCreateId(mockUserId);
+        param.setUpdateId(mockUserId);
         Result result = boardService.insertBoard(param);
         model.addAttribute("result", result);
         return new ModelAndView("redirect:/board/user/boardlist"); //TODO check forward, addAttribute to model
