@@ -22,10 +22,14 @@
             <tbody>
                 <tr th:if="${#lists.size(boardList)} > 0" th:each="list : ${boardList}">
                     <td th:text="${list.id}">1</td>
-                    <td class="title"><a href="/board/user/selectBoardDetail?id=" th:attrappend="href=${list.id}" th:text="${list.title}">제목은 여기에</a></td>
+                    <td class="title">
+                        <a href="/board/user/board?id=" 
+                            th:attrappend="href=${list.id}" 
+                            th:text="${list.title}">제목</a>
+                    </td>
                     <td th:text="${list.views}">23</td>
                     <td th:text="${#temporals.format(list.createTime, 'yyyy-MM-dd HH:mm:ss')}">2021-12-01 15:30:00</td>
-                    <td th:text="${list.createId}">c.p.</td>
+                    <td th:text="${list.createId}">c.p.0</td>
                 </tr> 
                 <tr th:unless="${#lists.size(boardList)} > 0">
                     <td colspan="5">조회된 결과가 없습니다.</td>

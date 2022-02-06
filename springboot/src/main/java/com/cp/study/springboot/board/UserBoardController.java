@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -25,9 +26,9 @@ public class UserBoardController {
 
     private String mockUserId = "cpBot1";
     
-    @GetMapping("/boardlist")
+    @GetMapping("/boards")
     public ModelAndView boardList() {
-        ModelAndView mav = new ModelAndView("board/userBoardList");
+        ModelAndView mav = new ModelAndView("board/user/userBoardList");
         List<BoardDto> boardList = boardService.selectBoardList();
         mav.addObject("boardList", boardList);
 
@@ -36,16 +37,23 @@ public class UserBoardController {
 
     @GetMapping("/board-writer")
     public ModelAndView boardWriter() {
-        ModelAndView mav = new ModelAndView("board/userBoardWriter");
-        return mav;
+        return new ModelAndView("board/user/userBoardWriter");
     }
 
-    @PostMapping("/entry")
+    @PostMapping("/board")
     public ModelAndView entry(BoardDto param, ModelMap model) {
         param.setCreateId(mockUserId);
         param.setUpdateId(mockUserId);
         Result result = boardService.insertBoard(param);
         model.addAttribute("result", result);
-        return new ModelAndView("redirect:/board/user/boardlist"); //TODO check forward, addAttribute to model
+        return new ModelAndView("redirect:/board/user/boards"); //TODO check forward, addAttribute to model
+    }
+
+    @GetMapping("/board")
+    public ModelAndView board(@RequestParam int id) {
+        ModelAndView mav = new ModelAndView("board/user/userBoardDetail");
+        BoardDto param = BoardDto.builder().id(id).build();
+        mav.addObject("result", boardService.selectBoard(param));
+        return mav;
     }
 }

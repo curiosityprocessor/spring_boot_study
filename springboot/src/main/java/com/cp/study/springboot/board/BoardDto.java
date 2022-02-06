@@ -2,11 +2,17 @@ package com.cp.study.springboot.board;
 
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class BoardDto {
-    private String id;
+    private int id;
     private String title;
     private String contents;
     private int views;
