@@ -18,9 +18,9 @@ public class CommonConstants {
     }
 
     public static class Urls {
-        private Urls(){}
         public static final String ROOT = "/";
-        public static final String USER_BOARD = "/board/user";
-
     }
+
+    public static final String RESULT = "result";
+    public static final String LIST = "list";
 }

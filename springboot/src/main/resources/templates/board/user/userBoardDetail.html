@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/fragment/layout.html::fragment-header">
+        <title>게시글 상세</title>
+        <link rel="stylesheet" href="../../static/css/style.css"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="../../static/js/common.js"></script>
+    </head>
+<body>
+	<div class="container">
+		<h2>게시글 상세 화면</h2>
+	    <form id="boardForm" method="post">
+	    	<table class="board_detail">
+                <caption>게시글 상세 화면</caption>
+				<colgroup>
+					<col style="width:15%"/>
+					<col style="width:35%"/>
+					<col style="width:15%"/>
+					<col style="width:35%"/>
+				</colgroup>
+				<caption>게시글 상세내용</caption>
+				<tbody>
+					<tr>
+						<th scope="row">글 번호</th>
+						<td th:text="${board.id }"></td>
+						<th scope="row">조회수</th>
+						<td th:text="${board.views }"></td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td th:text="${board.createId }"></td>
+						<th scope="row">작성일</th>
+						<td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mi:ss') }"></td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3"><input type="text" id="title" name="title" th:value="${board.title }"/></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="view_text">
+							<textarea title="내용" id="contents" name="contents" th:text="${board.contents }"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<input type="hidden" id="id" name="id" th:value="${board.id }">
+		</form>
+		
+		<a href="#this" id="list" class="btn">목록으로</a>
+		<a href="#this" id="edit" class="btn">수정하기</a>
+		<a href="#this" id="delete" class="btn">삭제하기</a>
+	</div>
+	
+</body>
+</html>
+<script type="text/javascript">
+import * as Constants from '../../static/js/constants.js';
+const boardForm = document.getElementById('boardForm');
+const listLink = document.getElementById('list');
+const editLink = document.getElementById('edit');
+const deleteLink = document.getElementById('delete');
+
+listLink.addEventListener('click', () => {
+    location.href = Constants.URL_BOARD.GET_BOARD_LIST;
+});
+
+editLink.addEventListener('click', () => {
+    boardForm.action = Constants.URL_BOARD.PUT_BOARD;
+
+})
+    $(document).ready(function(){
+        
+        $("#list").on("click", function(){
+            location.href = "/board/user/boards";
+        });
+        
+        $("#edit").on("click", function(){
+            var frm = $("#frm")[0];
+            frm.action = "/board/user/boards";
+            frm.submit();
+        });
+        
+        $("#delete").on("click", function(){
+            var frm = $("#frm")[0];
+            frm.action = "/board/deleteBoard.do";
+            frm.submit();
+        });
+    });
+</script>

@@ -17,4 +17,21 @@
             is_deleted = false
         ORDER BY id desc
     </select>
+
+    <select id="selectBoard" parameterType="com.cp.study.springboot.board.BoardDto" resultType="com.cp.study.springboot.board.BoardDto">
+        SELECT
+            id
+            , title
+            , contents
+            , views
+            , create_id
+            , create_time
+        FROM 
+            user_board
+        WHERE
+            id = #{id}
+            and is_deleted = false
+    </select>
+
+    
 </mapper>

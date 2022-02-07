@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/fragment/layout.html::fragment-header">
+    <title>게시글 목록</title>
     <link rel="stylesheet" href="../../static/css/style.css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../../static/js/common.js"></script>
@@ -20,18 +21,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:if="${#lists.size(boardList)} > 0" th:each="list : ${boardList}">
-                    <td th:text="${list.id}">1</td>
+                <tr th:if="${#lists.size(list)} > 0" th:each="item : ${list}">
+                    <td th:text="${item.id}">1</td>
                     <td class="title">
                         <a href="/board/user/board?id=" 
-                            th:attrappend="href=${list.id}" 
-                            th:text="${list.title}">제목</a>
+                            th:attrappend="href=${item.id}" 
+                            th:text="${item.title}">제목</a>
                     </td>
-                    <td th:text="${list.views}">23</td>
-                    <td th:text="${#temporals.format(list.createTime, 'yyyy-MM-dd HH:mm:ss')}">2021-12-01 15:30:00</td>
-                    <td th:text="${list.createId}">c.p.0</td>
+                    <td th:text="${item.views}">23</td>
+                    <td th:text="${#temporals.format(item.createTime, 'yyyy-MM-dd HH:mm:ss')}">2021-12-01 15:30:00</td>
+                    <td th:text="${item.createId}">c.p.0</td>
                 </tr> 
-                <tr th:unless="${#lists.size(boardList)} > 0">
+                <tr th:unless="${#lists.size(list)} > 0">
                     <td colspan="5">조회된 결과가 없습니다.</td>
                 </tr>
             </tbody>

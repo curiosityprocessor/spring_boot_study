@@ -1,12 +1,12 @@
-const sendHttpPostByKey = (url, key, value) => {
+const sendHttpRequestByKey = (method, url, key, value) => {
     let dto = {}
     dto[key] = value;
-    sendHttpPost(url, dto);
+    sendHttpRequest(method, url, dto);
 }
 
-const sendHttpPost = (url, dto) => {
+const sendHttpRequest = (method, url, dto) => {
     let newForm = document.createElement("form");
-    newForm.setAttribute("method", "post");
+    newForm.setAttribute("method", method);
     newForm.setAttribute("action", url);
     newForm.setAttribute("data", dto);
     document.body.appendChild(newForm);
