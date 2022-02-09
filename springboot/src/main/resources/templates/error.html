@@ -1,0 +1,9 @@
+<title>Error</title>
+<h2>Default Error page</h2>
+<div id="messageView" th:style="${result == null ? 'display:none;' : '' }">
+    <p th:if="${result != null and not #strings.isEmpty(result.resultMessage)}" th:text="${result.resultMessage}"></p>
+</div>
+<script th:inline="javascript">
+const result = /*[[${result}]]*/ null;
+
+</script>

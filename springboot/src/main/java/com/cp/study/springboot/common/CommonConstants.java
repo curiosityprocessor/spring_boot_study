@@ -17,10 +17,18 @@ public class CommonConstants {
     
     }
 
-    public static class Urls {
+    public static class Url {
         public static final String ROOT = "/";
+    }
+    
+    public static class View {
+        public static final String ERROR = "/error";
+        
     }
 
     public static final String RESULT = "result";
     public static final String LIST = "list";
+    public static class Error {
+        public static final String TRY_AGAIN = "다시 시도해주세요.";
+    }
 }

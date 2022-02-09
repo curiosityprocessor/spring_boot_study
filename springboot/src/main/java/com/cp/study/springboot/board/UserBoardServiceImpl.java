@@ -20,9 +20,8 @@ public class UserBoardServiceImpl implements BoardService {
     UserBoardWriteMapper userBoardWriteMapper;
 
     @Override
-    public Result insertBoard(BoardDto param) {
+    public void insertBoard(BoardDto param) {
         userBoardWriteMapper.insertBoard(param);
-        return Result.builder().resultCode(ResultCode.SUCCESS).build();
     }
 
     @Override
@@ -37,15 +36,13 @@ public class UserBoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Result updateBoard(BoardDto param) {
-        // TODO Auto-generated method stub
-        return null;
+    public void updateBoard(BoardDto param) {
+        userBoardWriteMapper.updateBoard(param);
     }
 
     @Override
-    public Result deleteBoard(BoardDto paranm) {
-        // TODO Auto-generated method stub
-        return null;
+    public void deleteBoard(BoardDto param) {
+        userBoardWriteMapper.deleteBoard(param);
     }
     
 }

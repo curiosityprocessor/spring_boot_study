@@ -21,4 +21,21 @@
             , current_timestamp
         )
     </insert>
+
+    <update id="updateBoard" parameterType="com.cp.study.springboot.board.BoardDto">
+        UPDATE user_board /* UserBoardWriteMapper.updateBoard */
+        SET
+            title = #{title}
+            , contents = #{contents}
+            , views = #{views}
+            , is_deleted = #{isDeleted}
+            , update_time = now()
+            , update_id = #{updateId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteBoard" parameterType="com.cp.study.springboot.board.BoardDto">
+        DELETE user_board /* UserBoardWriteMapper.deleteBoard */
+        WHERE id = #{id}
+    </delete>
 </mapper>

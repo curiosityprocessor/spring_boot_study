@@ -7,9 +7,8 @@ import com.cp.study.springboot.common.Result;
 public class QnaBoardServiceImpl implements BoardService {
 
     @Override
-    public Result insertBoard(BoardDto param) {
+    public void insertBoard(BoardDto param) {
         // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
@@ -25,15 +24,13 @@ public class QnaBoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Result updateBoard(BoardDto param) {
+    public void updateBoard(BoardDto param) {
         // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
-    public Result deleteBoard(BoardDto paranm) {
+    public void deleteBoard(BoardDto param) {
         // TODO Auto-generated method stub
-        return null;
     }
     
 }
