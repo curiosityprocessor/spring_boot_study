@@ -18,7 +18,7 @@
         ORDER BY id desc
     </select>
 
-    <select id="selectBoard" parameterType="com.cp.study.springboot.board.BoardDto" resultType="com.cp.study.springboot.board.BoardDto">
+    <select id="selectBoardDetail" parameterType="int" resultType="com.cp.study.springboot.board.BoardDto">
         SELECT
             id
             , title
@@ -33,5 +33,4 @@
             and is_deleted = false
     </select>
 
-    
 </mapper>

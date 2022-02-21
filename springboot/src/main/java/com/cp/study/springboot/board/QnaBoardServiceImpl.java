@@ -10,13 +10,13 @@ public class QnaBoardServiceImpl implements BoardService {
     public void insertBoard(BoardDto param) {
         // TODO Auto-generated method stub
     }
-
+    
     @Override
-    public BoardDto selectBoard(BoardDto param) {
+    public BoardDto selectBoardDetail(int id) {
         // TODO Auto-generated method stub
         return null;
     }
-
+    
     @Override
     public List<BoardDto> selectBoardList() {
         // TODO Auto-generated method stub
@@ -29,8 +29,8 @@ public class QnaBoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void deleteBoard(BoardDto param) {
+    public void deleteBoard(int param) {
         // TODO Auto-generated method stub
     }
-    
+
 }

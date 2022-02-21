@@ -28,6 +28,7 @@ public class CommonConstants {
 
     public static final String RESULT = "result";
     public static final String LIST = "list";
+    public static final String SYSTEM = "SYSTEM";
     public static class Error {
         public static final String TRY_AGAIN = "다시 시도해주세요.";
     }

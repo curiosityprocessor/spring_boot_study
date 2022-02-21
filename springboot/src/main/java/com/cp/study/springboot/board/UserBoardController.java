@@ -9,15 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,26 +24,22 @@ public class UserBoardController {
     @Qualifier("UserBoardService")
     private BoardService boardService;
 
-    private String mockUserId = "cpBot1";
-    
-    @GetMapping(BoardConstants.Url.BOARDS)
-    public ModelAndView boardList() {
+    @RequestMapping(BoardConstants.Url.BOARD_LIST)
+    public ModelAndView selectBoardList() {
         ModelAndView mav = new ModelAndView(BoardConstants.View.BOARD_LIST);
         List<BoardDto> boardList = boardService.selectBoardList();
         mav.addObject(CommonConstants.LIST, boardList);
         return mav;
     }
 
-    @GetMapping(BoardConstants.Url.BOARD_WRITER)
+    @RequestMapping(BoardConstants.Url.BOARD_WRITER)
     public ModelAndView boardWriter() {
         return new ModelAndView(BoardConstants.View.BOARD_WRITER);
     }
 
-    @PostMapping(BoardConstants.Url.BOARD)
+    @RequestMapping(BoardConstants.Url.BOARD_INSERT)
     public ModelAndView insertBoard(BoardDto param, ModelMap model) {
-        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARDS); //TODO check forward, addAttribute to model
-        param.setCreateId(mockUserId);
-        param.setUpdateId(mockUserId);
+        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARD_LIST); //TODO check forward, addAttribute to model
         try {
             boardService.insertBoard(param);
         } catch (Exception e) {
@@ -59,20 +50,23 @@ public class UserBoardController {
         return mav;
     }
 
-    @GetMapping(BoardConstants.Url.BOARD)
+    @RequestMapping(BoardConstants.Url.BOARD_DETAIL)
     public ModelAndView selectBoard(@RequestParam int id) {
         ModelAndView mav = new ModelAndView(BoardConstants.View.BOARD_DETAIL);
-        BoardDto param = BoardDto.builder().id(id).build();
-        mav.addObject(CommonConstants.RESULT, boardService.selectBoard(param));
+        BoardDto result = boardService.selectBoardDetail(id);
+        if(result == null) {
+            mav.setViewName(CommonConstants.View.ERROR); 
+            mav.addObject(CommonConstants.RESULT, Result.builder().resultMessage(BoardConstants.Error.NOT_EXIST).build());
+        }
+        mav.addObject("board", result);
         return mav;
     }
 
-    @PutMapping(BoardConstants.Url.BOARD)
-    public ModelAndView updateBoard(@RequestParam BoardDto param) {
-        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARDS);
-        param.setUpdateId(mockUserId);
+    @RequestMapping(BoardConstants.Url.BOARD_UPDATE)
+    public ModelAndView updateBoard( BoardDto board) {
+        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARD_LIST);
         try {
-            boardService.updateBoard(param);            
+            boardService.updateBoard(board);
         } catch (Exception e) {
             log.error("Exception occurred on boardService.updateBoard()", e);
             mav.addObject(CommonConstants.RESULT, Result.builder().resultMessage(CommonConstants.Error.TRY_AGAIN).build());
@@ -81,12 +75,11 @@ public class UserBoardController {
         return mav;
     }
 
-    @DeleteMapping(BoardConstants.Url.BOARD)
-    public ModelAndView deleteBoard(@RequestParam BoardDto param) {
-        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARDS);
-        param.setUpdateId(mockUserId);
+    @RequestMapping(BoardConstants.Url.BOARD_DELETE)
+    public ModelAndView deleteBoard(@RequestParam int id) {
+        ModelAndView mav = new ModelAndView("redirect:" + BoardConstants.Url.BOARD_LIST);
         try {
-            boardService.deleteBoard(param);
+            boardService.deleteBoard(id);
         } catch (Exception e) {
             log.error("Exception occurred on boardService.deleteBoard()", e);
             mav.addObject(CommonConstants.RESULT, Result.builder().resultMessage(CommonConstants.Error.TRY_AGAIN).build());

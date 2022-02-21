@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<h2>게시글 상세 화면</h2>
-	    <form id="boardForm" method="post">
+	    <form id="boardForm" name="board" method="post">
 	    	<table class="board_detail">
                 <caption>게시글 상세 화면</caption>
 				<colgroup>
@@ -30,7 +30,7 @@
 						<th scope="row">작성자</th>
 						<td th:text="${board.createId }"></td>
 						<th scope="row">작성일</th>
-						<td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mi:ss') }"></td>
+						<td th:text="${#temporals.format(board.createTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
 					</tr>
 					<tr>
 						<th scope="row">제목</th>
@@ -43,7 +43,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<input type="hidden" id="id" name="id" th:value="${board.id }">
+			<input type="hidden" id="id" name="id" th:value="${board.id}">
 		</form>
 		
 		<a href="#this" id="list" class="btn">목록으로</a>
@@ -54,36 +54,23 @@
 </body>
 </html>
 <script type="text/javascript">
-import * as Constants from '../../static/js/constants.js';
 const boardForm = document.getElementById('boardForm');
 const listLink = document.getElementById('list');
 const editLink = document.getElementById('edit');
 const deleteLink = document.getElementById('delete');
 
 listLink.addEventListener('click', () => {
-    location.href = Constants.URL_BOARD.GET_BOARD_LIST;
+    location.href = "/board/user/board-list";
 });
 
 editLink.addEventListener('click', () => {
-    boardForm.action = Constants.URL_BOARD.PUT_BOARD;
-
+    boardForm.action = "/board/user/update";
+    boardForm.submit();
 })
-    $(document).ready(function(){
-        
-        $("#list").on("click", function(){
-            location.href = "/board/user/boards";
-        });
-        
-        $("#edit").on("click", function(){
-            var frm = $("#frm")[0];
-            frm.action = "/board/user/boards";
-            frm.submit();
-        });
-        
-        $("#delete").on("click", function(){
-            var frm = $("#frm")[0];
-            frm.action = "/board/deleteBoard.do";
-            frm.submit();
-        });
-    });
+
+deleteLink.addEventListener('click', () => {
+    boardForm.action = "/board/user/delete";
+    boardForm.submit();
+})
+
 </script>

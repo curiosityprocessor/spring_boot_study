@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserBoardReadMapper {
 
     List<BoardDto> selectBoardList();
-    
+
+    BoardDto selectBoardDetail(int param);
 }

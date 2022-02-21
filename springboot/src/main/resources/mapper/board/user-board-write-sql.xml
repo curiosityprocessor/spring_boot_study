@@ -34,7 +34,7 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteBoard" parameterType="com.cp.study.springboot.board.BoardDto">
+    <delete id="deleteBoard" parameterType="int">
         DELETE user_board /* UserBoardWriteMapper.deleteBoard */
         WHERE id = #{id}
     </delete>
