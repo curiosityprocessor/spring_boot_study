@@ -1,0 +1,68 @@
+Configutation:
+  name: Default
+  status: warn
+
+  Properties:
+    Property:
+      name: log-path
+      value: "logs"
+    Property:
+      name: pattern
+      value: %d{HH:mm:ss.SSS} %highlight{%5p}{FATAL=bg_red, ERROR=red, INFO=cyan, DEBUG=blue} %green{[%c.%M:%L]} %m%n
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "${pattern}"
+    File:
+      name: File_Appender
+      fileName: ${log-path}/logfile.log
+      PatternLayout:
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t][%F] %c{1} - %msg%n"
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-path}/rollingfile.log
+        filePattern: "${log-path}/archive/rollingfile.log_%d{yyyy-MM-dd}.gz"
+        PatternLayout:
+          pattern: "${pattern}"
+        Policies:
+          TimeBasedTriggeringPolicy:
+            Interval: 1
+            modulate: true
+        DefaultRollOverStrategy:
+          Delete: 
+            basePath: "${log-path}/archive" 
+            maxDepth: "1" 
+            IfAccumulatedFileCount: 
+              exceeds: 31
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: Console_Appender
+        - ref: File_Appender
+        - ref: RollingFile_Appender
+    Logger:
+      - name: org.springframework.web
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+      - name: 'log4jdbc.log4j'
+        additivity: false
+        level: info
+        Filters:
+          MarkerFilter:
+            marker: "LOG4JDBC_RESULTSETTABLE"
+            onMatch: accept
+            onMismatch: neutral
+        AppenderRef:
+          - ref: Console_Appender
+      - name: 'com.cp.study.springboot'
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+      
