@@ -32,19 +32,24 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' exclude module: 'spring-boot-starter-logging'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation(platform('org.apache.logging.log4j:log4j-bom:2.17.1'))
+    implementation 'com.vlkan.log4j2:log4j2-logstash-layout:1.0.5'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'
+    compile 'org.mybatis:mybatis-typehandlers-jsr310:1.0.2'
 }
 
 test {
 	useJUnitPlatform()
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if(details.requested.group == 'org.apache.logging.log4j') {
+            details.useVersion '2.17.1'
+        }
+    }
+}
+
 configurations {
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-			if(details.requested.group == 'org.apache.logging.log4j') {
-				details.useVersion '2.17.1'
-			}
-		}
-	}
+    compile.exclude module: 'spring-boot-starter-logging'
 }

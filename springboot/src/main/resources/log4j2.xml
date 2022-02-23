@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="pattern">%d{HH:mm:ss.SSS} %highlight{%5p}{FATAL=bg_red, ERROR=red, INFO=cyan, DEBUG=blue} %green{[%c.%M:%L]} %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" disableAnsi="false" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <logger name="org.springframework.web" level="INFO" additivitiy="false">
+            <appender-ref ref="ConsoleAppender" />
+        </logger>
+
+        <logger name="com.cp.study.springboot" level="INFO" additivitiy="false">
+            <appender-ref ref="ConsoleAppender" />
+        </logger>
+
+        <logger name="com.zaxxer.hikari" level="OFF" additivitiy="false"/>
+
+        <logger name="log4jdbc.log4j2" level="INFO" additivitiy="false">
+            <Filters>
+                <MarkerFilter marker="LOG4JDBC_RESULTSETTABLE" onMatch="ACCEPT" onMismatch="NEUTRAL" />
+                <MarkerFilter marker="LOG4JDBC_NON_STATEMENT" onMatch="DENY" onMismatch="NEUTRAL" />
+            </Filters>
+            <appender-ref ref="ConsoleAppender" />
+        </logger>
+
+        <root leve="INFO">
+            <appender-ref ref="ConsoleAppender" />
+        </root>
+    </Loggers>
+</configuration>
