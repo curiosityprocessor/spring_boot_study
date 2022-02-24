@@ -13,10 +13,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     BaseInterceptor baseInterceptor;
 
+    @Autowired
+    LoggerInterceptor loggerInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // WebMvcConfigurer.super.addInterceptors(registry);
         InterceptorRegistration ir = registry.addInterceptor(baseInterceptor);
         ir.addPathPatterns("/**");
+
+        registry.addInterceptor(loggerInterceptor);
     }
 }
